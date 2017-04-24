@@ -1,0 +1,40 @@
+---
+title: "Tarefa 4"
+author: "Henrique Capatto RA:146406"
+output: pdf_document
+---
+
+```{r,echo=FALSE}
+
+dados = read.table(choose.files(),header = T)
+
+# verificação da presença de variáveis faltantes
+(var_falt = sapply(dados, function(x) sum(is.na(x))))
+
+# verificação de quais variáveis são categóricas.
+```
+
+```{r,echo=FALSE}
+
+```
+
+
+```{r,echo=FALSE}
+
+```
+
+
+```{r,echo=FALSE}
+
+```
+
+
+```{r,echo=FALSE}
+
+```
+
+
+```{r,echo=FALSE}
+
+```
+

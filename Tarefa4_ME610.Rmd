@@ -48,9 +48,9 @@ Departamento de Estatística}
 \begin{center}
 \vspace*{4cm}
 {\Large \bf Henrique Capatto  RA:146406 \\
-Murilo Salgado Razoli  RA:150987 \break
+Wellington Takao Tanaka  RA:093259 \break
 }\\[3pt]
-{\large \bf Professor: }\\[5pt]
+{\large \bf Professor: Mauricio Enrique Zevallos Herencia}\\[5pt]
 \end{center}
 \vspace*{\stretch{1}}
 \vspace*{\stretch{1}}
@@ -139,45 +139,59 @@ Portanto o objetivo desse estudo é detectar quais variáveis influenciam no pes
 
 ## Banco de Dados
 
-Deciciu se fixar uma retirada de dados de 5% do total observações por individuo, a fim de que não perdesse informações relevantes ao problema.
+As definições das variáveis do problema se encontram no Apêndice **A.1**, no final do relatório.
 
-Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo
+Fixou-se em 5% a retirada de dados do total observações por individuo, a fim de que não perdesse informações relevantes ao problema.
 
-Outras variáveis que não são de interesse
+Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo e portanto não fornece nemhuma informação a mais relacionada ao problema.
+
+Outras variáveis que não interessam são as variáveis categóricas com valor único, como por exemplo as variáveis _sex_ e _outcome_.
 
 ```{r,echo=FALSE}
 file = paste(getwd(),"/dados.txt",sep = "")
 
 dados = read.table(file,header = T)
+colnames(dados)[12] = c("mht")
+colnames(dados)[13] = c("mwt")
+
 
 # verificação da presença de variáveis faltantes
-(var_falt = sapply(dados, function(x) sum(is.na(x))))
+var_falt = as.data.frame(sapply(dados, function(x) sum(is.na(x))))
 
 # verificação de quais variáveis são categóricas.
+# id, pluraity, outcome, sex,
+# parity, race, ed, drace,ded,marriage,inc, smoke, time, number
 
+# Variáveis discretas e contínuas
 
 #quais observações estão com valores faltantes(unknown)
-which(grepl(99,dados$race))
-which(grepl(99,dados$age))
-which(grepl(999,dados$wt))
+#which(grepl(99,dados$race))
+#which(grepl(99,dados$age))
+#which(grepl(999,dados$wt))
 
-which(grepl(98,dados$number))
-which(grepl(99,dados$ht))
-which(grepl(9,dados$ed))
+#which(grepl(98,dados$number))
+#which(grepl(99,dados$ht))
+#which(grepl(9,dados$ed))
 
-which(grepl(98,dados$time))
-which(grepl(99,dados$age))
-which(grepl(999,dados$wt))
+#which(grepl(98,dados$time))
+#which(grepl(99,dados$age))
+#which(grepl(999,dados$wt))
 
-which(grepl(98,dados$inc))
-which(grepl(99,dados$age))
-which(grepl(999,dados$wt))
+#which(grepl(98,dados$inc))
+#which(grepl(99,dados$age))
+#which(grepl(999,dados$wt))
 
 
+
+grid.table(var_falt)
 ```
 
-```{r gráficos,echo=FALSE}
-g1 = ggplot(data = dados, aes(x = factor()))
+```{r gráficos_mae ,echo=FALSE}
+g1 = ggplot(data = dados, aes(x = factor(race),y=wt))+geom_boxplot()+theme_classic()
+
+g2 = ggplot(data = dados, aes(x = factor(ed),y=wt))+geom_boxplot()+theme_classic()
+
+g12 = grid.arrange(g1, g2, ncol=1,nrow=2)
 ```
 
 
@@ -222,35 +236,41 @@ g1 = ggplot(data = dados, aes(x = factor()))
 
 9. race - raça de mãe, 0-5 = branco, 6 = mex, 7 = preto, 8 = asiático, 9 = misturado,99 = desconhecido
 
-10 age - idade da mãe em anos de término da gravidez, 99=desconhecido
+10. age - idade da mãe em anos de término da gravidez, 99=desconhecido
 
-11 ed - educação materna 0 = menor que 8º ano,
+11. ed - educação materna 0 = menor que 8º ano,
    1 = 8ª-12ª série - não se graduou,
-   2 = HS graduação - nenhuma outra escolaridade, 3 = HS + comércio,
-  4 = HS + alguma faculdade 5 = Graduado, 6 & 7 Trade school HS unclear, 9 = desconhecido
+   2 = HS graduação - nenhuma outra escolaridade, 
+   3 = HS + comércio,
+   4 = HS + alguma faculdade,
+   5 = Graduado, 
+   6 & 7 Trade school HS não claro,
+   9 = desconhecido
 
-12 ht - altura da mãe em polegadas para a última polegada concluída
-   99 = desconhecido
+12. mht - altura da mãe em polegadas para a última polegada concluída, 99 = desconhecido
 
-13 wt - peso prepregnancy da mãe em libras, 999 = desconhecido
+13. mwt - peso pré-gradidez da mãe em libras, 999 = desconhecido
 
-14 drace - raça do pai, determinado como o mesmo que a raça da mãe.
+14. drace - raça do pai, determinado como o mesmo que a raça da mãe.
 
-15 days - idade do pai, determinado igual ao da mãe.
+15. dage - idade do pai, determinado igual ao da mãe.
 
-16 ded - educação do pai, determinado como o mesmo que a educação da mãe.
+16. ded - educação do pai, determinado como o mesmo que a educação da mãe.
 
-17 dht - altura do pai, determinado igual à da altura da mãe
+17. dht - altura do pai, determinado igual à da altura da mãe
 
-18 dwt - determinação do peso do pai igual ao peso da mãe
+18. dwt - determinação do peso do pai igual ao peso da mãe
 
-19 casados - 1 = casados, 2 = separados legalmente, 3 = divorciados,
-  4 = viúvo, 5 = nunca se casou
+19. marital - 1 = casados, 2 = separados legalmente, 3 = 
+divorciados, 4 = viúvo, 5 = nunca se casou
 
-20 inc - rendimento anual da família em rendimentos de $ 2500 0 = menos de 2500,1 = 2500-4999, ..., 8 = 12.500-14.999, 9 = 15000 +,98 = desconhecido, 99 = não solicitado
+20. inc - rendimento anual da família em rendimentos de $ 2500 
+0 = menos de 2500,1 = 2500-4999, ..., 8 = 12.500-14.999, 9 = 
+15000 +,98 = desconhecido, 99 = não solicitado
 
-21. smoke - a mãe fuma? 0 = nunca, 1 = fuma agora, 2 = até a gravidez atual, 3 = uma vez, não agora, 9 = desconhecido
+21. smoke - a mãe fuma? 0 = nunca, 1 = fuma agora, 2 = até a 
+gravidez atual, 3 = uma vez, não agora, 9 = desconhecido
 
-22. time - Se a mãe parar, há quanto tempo? 0 = nunca fumado, 1 = ainda fuma,2 = durante a corrente preg, 3 = dentro de 1 ano, 4 = 1 a 2 anos atrás,5 = 2 a 3 anos atrás, 6 = 3 a 4 anos atrás, 7 = 5 a 9yrs atrás,8 = 10 + anos atrás, 9 = sair e não sabe, 98 = desconhecido, 99 = não solicitado
+22. time - Se a mãe parar, há quanto tempo? 0 = nunca fumado, 1= ainda fuma,2 = durante a corrente preg, 3 = dentro de 1 ano,4 = 1 a 2 anos atrás,5 = 2 a 3 anos atrás, 6 = 3 a 4 anos atrás, 7 = 5 a 9yrs atrás,8 = 10 + anos atrás, 9 = sair e não sabe, 98 = desconhecido, 99 = não solicitado
 
 23. number - número de cigarros fumados por dia para fumadores passados e actuais 0 = nunca, 1 = 1-4 2 = 5-9, 3 = 10-14, 4 = 15-19, 5 = 20-29, 6 = 30-39, 7 = 40-60, 8 = 60+, 9 = fuma mas não sabe quantos fuma, 98 = desconhecido, 99 = não solicitado

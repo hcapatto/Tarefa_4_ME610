@@ -14,9 +14,9 @@ Variables in data file
    1 = 8th -12th grade - did not graduate, 
    2= HS graduate--no other schooling , 3= HS+trade,
   4=HS+some college 5= College graduate, 6&7 Trade school HS unclear, 9=unknown 
-12 ht - mother's height in inches to the last completed inch
+12 mht - mother's height in inches to the last completed inch
    99=unknown
-13 wt - mother prepregnancy wt in pounds, 999=unknown 
+13 mwt - mother prepregnancy wt in pounds, 999=unknown 
 14 drace - father's race, coding same as mother's race.
 15 dage - father's age, coding same as mother's age.
 16 ded  - father's education, coding same as mother's education.

@@ -68,11 +68,11 @@ options(OutDec= ",")
 #eval= FALSE faz com que o R ignore este chunk
 #echo = FALSE não permite que o chunk apareça no pdf
 
-#pacotes = c("tidyverse","plyr","dplyr","reshape2","knitr")
+#pacotes = c("tidyverse","plyr","dplyr","gridExtra","captioner","reshape2","knitr")
 #install.packages(pacotes)
 
 # pacote utiliado para gráficos
-library(ggplot2)
+library(tidyverse)
 # pacote que deixa os gráficos do ggplot lado a lado
 library(gridExtra)
 # pacotes para manipulação de dados
@@ -145,7 +145,7 @@ Fixou-se em 5% a retirada de dados do total observações por individuo, a fim d
 
 Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo e portanto não fornece nemhuma informação a mais relacionada ao problema.
 
-Outras variáveis que não interessam são as variáveis categóricas com valor único, como por exemplo as variáveis _sex_ e _outcome_.
+Outras variáveis que não interessam são as variáveis categóricas com valor único, como por exemplo as variáveis _sex_, que possui apenas a categoria 1 e _outcome_, possuinte somente da categoria 1.
 
 ```{r,echo=FALSE}
 file = paste(getwd(),"/dados.txt",sep = "")
@@ -186,16 +186,35 @@ var_falt = as.data.frame(sapply(dados, function(x) sum(is.na(x))))
 grid.table(var_falt)
 ```
 
-```{r gráficos_mae ,echo=FALSE}
+```{r graf_mae_1 ,echo=FALSE}
+
+# boxplot do peso do bebe por raça da mãe
 g1 = ggplot(data = dados, aes(x = factor(race),y=wt))+geom_boxplot()+theme_classic()
 
+# boxplot do peso do bebe por nivel educacional da mãe
 g2 = ggplot(data = dados, aes(x = factor(ed),y=wt))+geom_boxplot()+theme_classic()
 
-g12 = grid.arrange(g1, g2, ncol=1,nrow=2)
+g1mae = grid.arrange(g1, g2, ncol=1,nrow=2)
+
+
+
 ```
 
 
-```{r,echo=FALSE}
+```{r graf_mae_2,echo=FALSE}
+oipi = which(grepl(99,dados$mht))
+dado = dados[-oipi,]
+
+g3 = ggplot(data = dado, aes(x = mht,y=wt))+geom_point()+theme_classic()
+
+oipi = which(grepl(999,dados$mwt))
+dado = dados[-oipi,]
+
+# boxplot do peso do bebe por nivel educacional da mãe
+g4 = ggplot(data = dado, aes(x = mwt,y=wt))+geom_point()+theme_classic()
+
+g2mae = grid.arrange(g3, g4, ncol=1,nrow=2)
+
 
 ```
 
@@ -228,7 +247,7 @@ g12 = grid.arrange(g1, g2, ncol=1,nrow=2)
 
 5. gestation - duração da gestação em dias
 
-6. sex - sexo do bebê 1 = macho 2 = feminino 9 = desconhecido
+6. sex - sexo do bebê: 1 = macho, 2 = feminino e 9 = desconhecido
 
 7. wt - peso ao nascer em onças (999 desconhecido)
 
@@ -250,7 +269,8 @@ g12 = grid.arrange(g1, g2, ncol=1,nrow=2)
 12. mht - altura da mãe em polegadas para a última polegada concluída, 99 = desconhecido
 
 13. mwt - peso pré-gradidez da mãe em libras, 999 = desconhecido
-
+ 
+ 
 14. drace - raça do pai, determinado como o mesmo que a raça da mãe.
 
 15. dage - idade do pai, determinado igual ao da mãe.

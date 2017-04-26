@@ -79,8 +79,7 @@ library(gridExtra)
 library(reshape2)
 library(plyr)
 library(dplyr)
-#pacote que possui o conjunto de dados para o primeiro exercício
-library(car)
+
 #pacote para fazer legenda
 library(captioner)
 
@@ -130,6 +129,22 @@ legenda_graf11 = figs(name="envelnorm(fit_otimo_adj2)",caption = "Gráfico de en
 
 ```
 
+## Introdução
+
+Debate-se severamente na literatura médica a cerca de quais variáveis afeta o peso do bebê quando nasce e  nesse sentido, dado o problema, pode-se pensar que algumas delas são influenciadoras como por exemplo: Peso da mãe, duração da gestação, situação matrimonial da mãe. 
+
+Muitos estudos têm corroborado a tese de que se a mãe é dependente de tabaco isso influencia diretamente no peso do bebê ao nascer mais do que outras variáveis, como o peso, altura, situação matrimonial da mãe, por exemplo.
+
+Portanto o objetivo desse estudo é detectar quais variáveis influenciam no peso do bebê nascer.
+
+## Banco de Dados
+
+Deciciu se fixar uma retirada de dados de 5% do total observações por individuo, a fim de que não perdesse informações relevantes ao problema.
+
+Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo
+
+Outras variáveis que não são de interesse
+
 ```{r,echo=FALSE}
 file = paste(getwd(),"/dados.txt",sep = "")
 
@@ -161,8 +176,8 @@ which(grepl(999,dados$wt))
 
 ```
 
-```{r,echo=FALSE}
-
+```{r gráficos,echo=FALSE}
+g1 = ggplot(data = dados, aes(x = factor()))
 ```
 
 
@@ -185,3 +200,57 @@ which(grepl(999,dados$wt))
 
 ```
 
+# Apêndice
+
+### A.1 Variáveis presentes no Banco de dados
+
+1. id - número de identificação
+
+2. pluralty- 5 = feto único
+
+3. outcome - 1 = nascimento vivo que sobreviveu pelo menos 28 dias
+
+4. data - data de nascimento em que 1096 = 1 de janeiro de 1961
+
+5. gestation - duração da gestação em dias
+
+6. sex - sexo do bebê 1 = macho 2 = feminino 9 = desconhecido
+
+7. wt - peso ao nascer em onças (999 desconhecido)
+
+8. parity - número total de gestações anteriores, incluindo Mortes fetais e nascimentos, 99 = desconhecido
+
+9. race - raça de mãe, 0-5 = branco, 6 = mex, 7 = preto, 8 = asiático, 9 = misturado,99 = desconhecido
+
+10 age - idade da mãe em anos de término da gravidez, 99=desconhecido
+
+11 ed - educação materna 0 = menor que 8º ano,
+   1 = 8ª-12ª série - não se graduou,
+   2 = HS graduação - nenhuma outra escolaridade, 3 = HS + comércio,
+  4 = HS + alguma faculdade 5 = Graduado, 6 & 7 Trade school HS unclear, 9 = desconhecido
+
+12 ht - altura da mãe em polegadas para a última polegada concluída
+   99 = desconhecido
+
+13 wt - peso prepregnancy da mãe em libras, 999 = desconhecido
+
+14 drace - raça do pai, determinado como o mesmo que a raça da mãe.
+
+15 days - idade do pai, determinado igual ao da mãe.
+
+16 ded - educação do pai, determinado como o mesmo que a educação da mãe.
+
+17 dht - altura do pai, determinado igual à da altura da mãe
+
+18 dwt - determinação do peso do pai igual ao peso da mãe
+
+19 casados - 1 = casados, 2 = separados legalmente, 3 = divorciados,
+  4 = viúvo, 5 = nunca se casou
+
+20 inc - rendimento anual da família em rendimentos de $ 2500 0 = menos de 2500,1 = 2500-4999, ..., 8 = 12.500-14.999, 9 = 15000 +,98 = desconhecido, 99 = não solicitado
+
+21. smoke - a mãe fuma? 0 = nunca, 1 = fuma agora, 2 = até a gravidez atual, 3 = uma vez, não agora, 9 = desconhecido
+
+22. time - Se a mãe parar, há quanto tempo? 0 = nunca fumado, 1 = ainda fuma,2 = durante a corrente preg, 3 = dentro de 1 ano, 4 = 1 a 2 anos atrás,5 = 2 a 3 anos atrás, 6 = 3 a 4 anos atrás, 7 = 5 a 9yrs atrás,8 = 10 + anos atrás, 9 = sair e não sabe, 98 = desconhecido, 99 = não solicitado
+
+23. number - número de cigarros fumados por dia para fumadores passados e actuais 0 = nunca, 1 = 1-4 2 = 5-9, 3 = 10-14, 4 = 15-19, 5 = 20-29, 6 = 30-39, 7 = 40-60, 8 = 60+, 9 = fuma mas não sabe quantos fuma, 98 = desconhecido, 99 = não solicitado

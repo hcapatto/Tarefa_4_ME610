@@ -1,5 +1,4 @@
 ---
-title: ""
 geometry: textwidth=18cm,textheight=21cm
 setspace: doublespacing
 lang: pt-br
@@ -47,7 +46,7 @@ Departamento de Estatística}
 \vspace*{\stretch{1}}
 \begin{center}
 \vspace*{4cm}
-{\Large \bf Henrique Capatto  RA:146406 \\
+{\Large \bf Henrique Capatto  RA:146406\\
 Wellington Takao Tanaka  RA:093259 \break
 }\\[3pt]
 {\large \bf Professor: Mauricio Enrique Zevallos Herencia}\\[5pt]
@@ -79,11 +78,13 @@ library(gridExtra)
 library(reshape2)
 library(plyr)
 library(dplyr)
-
+library(xtable)
 #pacote para fazer legenda
 library(captioner)
 
+# caso não tenha os pacotes no PC e tenha o desejo de instalá-los, basta tirar a hashtag na frente de install.packages
 
+# install.packages(c("tidyverse","gridExtra","reshape2","plyr","dplyr","xtable","captioner"))
 
 figs <- captioner(prefix="Figura")
 tbls <- captioner(prefix="Tabela")
@@ -104,28 +105,34 @@ tbls <- captioner(prefix="Tabela")
 #legenda para as tabelas
 
 # legenda para a primeira tabela(estats descr) do primeiro exercício
-legenda_table1 = tbls(name="table_estat_descr1",caption = "Estatísticas Descritivas")
-legenda_table2 = tbls(name="table_comparacao",caption = "Estimativas dos parâmetros, intervalo de confiança e teste de nulidade para o modelo 1")
-legenda_table3 = tbls(name="coeff_fit_otimo",caption = "Estimativas dos parâmetros, intervalo de confiança e teste de nulidade para o modelo 2")
-legenda_table4 = tbls(name="table_mult",caption = "Tabela dos coeficientes de correlação linear entre as covariáveis")
-legenda_table5 = tbls(name="table_comp1",caption = "Tabela de Comparação dos modelos 1, 2 e 3")
-legenda_table6 = tbls(name="table_comp2",caption = "Tabela de Comparação dos modelos 1, 2, 3 e 4")
+legenda_table1 = tbls(name="table_modelo_1",caption = "Resultados para o Modelo 1")
+legenda_table2 = tbls(name="table_modelo_2",caption = "Resultados para o Modelo 2")
+
+#legenda_table3 = tbls(name="coeff_fit_otimo",caption = "Estimativas dos parâmetros, intervalo de confiança e teste de nulidade para o modelo 2")
+#legenda_table4 = tbls(name="table_mult",caption = "Tabela dos coeficientes de correlação linear entre as covariáveis")
+#legenda_table5 = tbls(name="table_comp1",caption = "Tabela de Comparação dos modelos 1, 2 e 3")
+#legenda_table6 = tbls(name="table_comp2",caption = "Tabela de Comparação dos modelos 1, 2, 3 e 4")
 
 #legendas para os gráficos
 
 #legenda para o primeiro Boxplot
-legenda_graf1 = figs(name="graf1_dispersao",caption = "Gráficos de dispersão")
+legenda_graf1 = figs(name="graf1_dispersao",caption = "Gráfico de dispersão de: Raça da Mãe por Peso do Bebê")
 #legenda para o primeiro grárico de dispersão
-legenda_graf2 = figs(name="graf2_residuos",caption = "Análise de Resíduo para o modelo 1")
-legenda_graf3 = figs(name="graf3_residuos",caption = "Gráfico de envelope para os resíduos studentizado para o modelo 1")
-legenda_graf4 = figs(name="graf4_residuos",caption = "Análise residual para o modelo 2")
-legenda_graf5 = figs(name="graf5_envelope",caption = "Gráfico de envelope para os resíduos studentizado para o modelo 2")
-legenda_graf6 = figs(name="grafico_correlacao",caption = "Gráfico de correlação")
-legenda_graf7 = figs(name="anainflu_norm(fit_otimo)",caption = "Pontos alavanca e distância de Cook")
-legenda_graf8 = figs(name="diag2norm(fit_otimo_adj1)",caption = "Análise residual para o modelo 3")
-legenda_graf9 = figs(name="envelnorm(fit_otimo_adj1)",caption = "Gráfico de envelope para os resíduos studentizado para o modelo 3")
-legenda_graf10 = figs(name="diag2norm(fit_otimo_adj2)",caption = "Análise residual para o modelo 4")
-legenda_graf11 = figs(name="envelnorm(fit_otimo_adj2)",caption = "Gráfico de envelope para os resíduos studentizado para o modelo 4")
+legenda_graf2 = figs(name="graf2_dispersao",caption = "Gráfico de dispersão de: Educação da Mãe por Peso do Bebê")
+legenda_graf3 = figs(name="graf3_dispersao",caption = "Gráfico de dispersão de: Status Matrimonial por Peso do Bebê")
+legenda_graf4 = figs(name="graf4_dispersao",caption = "Gráfico de dispersão de: Rendimento Anual da Família  por Peso do Bebê")
+legenda_graf5 = figs(name="graf5_dispersao",caption = "Gráfico de dispersão de: Vicio em Tabaco por Peso do Bebê")
+legenda_graf6 = figs(name="graf6_dispersao",caption = "Gráfico de dispersão de: Tempo de Parada de Hábito de Fumar por Peso do Bebê")
+legenda_graf7 = figs(name="graf7_dispersao",caption = "Gráfico de dispersão de: Número de Cigarros Fumados por Dia por Peso do Bebê")
+legenda_graf8 = figs(name="graf8_dispersao",caption = "Gráfico de dispersão de: Número Total de Gestações Anteriores por Peso do Bebê")
+legenda_graf9 = figs(name="graf9_dispersao",caption = "Gráfico de dispersão de:  Idade da mãe por Peso do Bebê")
+legenda_graf10 = figs(name="graf10_dispersao",caption = "Gráfico de dispersão de:  Altura da Mãe por Peso do Bebê")
+legenda_graf11 = figs(name="graf11_dispersao",caption = "Gráfico de dispersão de: Peso Pré-Gravidez da Mãe por Peso do Bebê")
+
+legenda_graf12 = figs(name="graf12_dispersao",caption = "Gráfico de dispersão de: Data de Nascimento por Peso do Bebê")
+
+legenda_graf13 = figs(name="graf13_dispersao",caption = "Gráfico de dispersão de: Duração da Gestação em Dias por Peso do Bebê")
+
 
 ```
 
@@ -137,16 +144,6 @@ Muitos estudos têm corroborado a tese de que se a mãe é dependente de tabaco 
 
 Portanto o objetivo desse estudo é detectar quais variáveis influenciam no peso do bebê nascer.
 
-## Banco de Dados
-
-As definições das variáveis do problema se encontram no Apêndice **A.1**, no final do relatório.
-
-Fixou-se em 5% a retirada de dados do total observações por individuo, a fim de que não perdesse informações relevantes ao problema.
-
-Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo e portanto não fornece nemhuma informação a mais relacionada ao problema.
-
-Outras variáveis que não interessam são as variáveis categóricas com valor único, como por exemplo as variáveis _sex_, que possui apenas a categoria 1 e _outcome_, possuinte somente da categoria 1.
-
 ```{r,echo=FALSE}
 file = paste(getwd(),"/dados.txt",sep = "")
 
@@ -154,6 +151,51 @@ dados = read.table(file,header = T)
 colnames(dados)[12] = c("mht")
 colnames(dados)[13] = c("mwt")
 
+# transformacao de onça para grama
+dados$wt=dados$wt*28.3495
+
+# transformacao de libra para grama
+dados$mwt=dados$mwt*453.592
+dados$dwt=dados$dwt*453.592
+
+# transformação de polegadas para centrimetros
+dados$mht=dados$mht*2.54
+dados$dht=dados$dht*2.54
+
+dados$time=NULL
+dados$number=NULL
+
+#transformação de algumas colunas categoricas em fatores
+
+dados$parity=factor(dados$parity)
+dados$race=factor(dados$race)
+dados$ed=factor(dados$ed)
+dados$race=factor(dados$drace)
+dados$ed=factor(dados$ded)
+dados$marital=factor(dados$marital)
+dados$inc=factor(dados$inc)
+dados$smoke=factor(dados$smoke)
+
+#dados$time=factor(dados$time)
+#dados$number=factor(dados$number)
+
+
+#elimininação de algumas variáveis
+dados$id=NULL
+dados$pluralty=NULL
+dados$outcome=NULL
+dados$sex=NULL
+
+# Colunas que corregam a amesa informação
+dados$time=NULL
+dados$number=NULL
+dados$inc=NULL
+# dados do pai
+#dados$drace=NULL
+#dados$dage=NULL
+#dados$ded=NULL
+#dados$dht=NULL
+#dados$dwt=NULL
 
 # verificação da presença de variáveis faltantes
 var_falt = as.data.frame(sapply(dados, function(x) sum(is.na(x))))
@@ -165,77 +207,180 @@ var_falt = as.data.frame(sapply(dados, function(x) sum(is.na(x))))
 # Variáveis discretas e contínuas
 
 #quais observações estão com valores faltantes(unknown)
-#which(grepl(99,dados$race))
-#which(grepl(99,dados$age))
-#which(grepl(999,dados$wt))
 
-#which(grepl(98,dados$number))
-#which(grepl(99,dados$ht))
-#which(grepl(9,dados$ed))
+dados = dados[-which(grepl(99,dados$race)),]
+#dados = dados[-which(grepl(99,dados$drace)),]
 
-#which(grepl(98,dados$time))
-#which(grepl(99,dados$age))
-#which(grepl(999,dados$wt))
+dados = dados[-which(grepl(9,dados$ed)),]
+dados = dados[-which(grepl(9,dados$ded)),]
 
-#which(grepl(98,dados$inc))
-#which(grepl(99,dados$age))
-#which(grepl(999,dados$wt))
+dados = dados[-which(grepl(9,dados$smoke)),]
 
+# Variavel inc
+#dados = dados[-which(grepl(98,dados$inc)),]
 
+#dados = dados[-which(grepl(99,dados$mht)),]
+#dados = dados[-which(grepl(99,dados$dht)),]
 
-grid.table(var_falt)
-```
+dados = dados[-which(grepl(99,dados$mwt)),]
+dados = dados[-which(grepl(99,dados$dwt)),]
 
-```{r graf_mae_1 ,echo=FALSE}
+dados = dados[-which(grepl(99,dados$age)),]
+dados = dados[-which(grepl(99,dados$dage)),]
 
-# boxplot do peso do bebe por raça da mãe
-g1 = ggplot(data = dados, aes(x = factor(race),y=wt))+geom_boxplot()+theme_classic()
-
-# boxplot do peso do bebe por nivel educacional da mãe
-g2 = ggplot(data = dados, aes(x = factor(ed),y=wt))+geom_boxplot()+theme_classic()
-
-g1mae = grid.arrange(g1, g2, ncol=1,nrow=2)
-
+dados = dados[-which(grepl(999,dados$gestation)),]
+dados = dados[-which(grepl(0,dados$marital)),]
+#dados = dados[-which(grepl(98,dados$parity)),]
 
 
 ```
 
+# Modelagem
 
-```{r graf_mae_2,echo=FALSE}
-oipi = which(grepl(99,dados$mht))
-dado = dados[-oipi,]
+## Software
 
-g3 = ggplot(data = dado, aes(x = mht,y=wt))+geom_point()+theme_classic()
-
-oipi = which(grepl(999,dados$mwt))
-dado = dados[-oipi,]
-
-# boxplot do peso do bebe por nivel educacional da mãe
-g4 = ggplot(data = dado, aes(x = mwt,y=wt))+geom_point()+theme_classic()
-
-g2mae = grid.arrange(g3, g4, ncol=1,nrow=2)
+Todas as análises foram obtidos pelo software R.
 
 
-```
+## Banco de Dados
 
+As definições das variáveis do problema se encontram no Apêndice **A.1**, no final do relatório.
+
+Fixou-se em 15% a retirada de dados do total observações por individuo, a fim de que não perdesse informações relevantes ao problema.
+
+Algumas colunas foram desconsideradas da análise, por não fazerem sentido em termos do problema, a exemplo da coluna _id_ pois é apenas uma informação de registro da pessoa que foi acompanhada para realização do estudo e portanto não fornece nemhuma informação a mais relacionada ao problema.
+
+Outras variáveis que não interessam são as variáveis categóricas com valor único, como por exemplo as variáveis _sex_, que possui apenas a categoria 1 e _outcome_, possuinte somente da categoria 1.
+
+As Variáveis relacionadas ao pai não foram consideradas no estudo pois na literatura médica não há indícios de relação entre aquelas variáveis e o Peso do Bebê, e por isso foi considerada um possível fator de confundimento para análises.
+
+Foi verificado também se há variaveis faltantes no banco de dados.
+
+## Análise Descritiva
+
+Observando as figuras 1,2,4.5,7 conclui-se que as variáveis vistas não possuem uma relação direta com o Peso do Bebê, ou seja, elas podem não ser significativas no modelo que será proposto. Relata-se uma grande variabilidade  e um a distinção entre o número de observações dentro de cada fator em sua respectiva variável, levando a uma falsa inpressão, como nos casos das variavéis figura 6,7 e 8 de relação decrescente entre as variáveis.
+
+Analisando as Figuras 9,10,11,12 pode-se ver que as variáveis são quantitativas porém, não se observa nemhum padrão explicito na sequência de pontos dispostos no gráfico, ao contráriodo acontecido na figura 13, em que se pode ver uma clara relação linear crescente nos pontos dispostos quando a gestação em dias passa do ponto 225, ou seja, a partir desse ponto quanto maior for o numero de dias de gestação, maior peso terpa o Bebê. 
+
+Logo, a partir dessa análise preliminar pode-se pensar em quais variáveis são mais propensas a explicar melhor os dadis.
 
 ```{r,echo=FALSE}
 
 ```
 
+## Modelo
+
+O modelo adotado foi de Regressão Linear Normal Multipla sem intercepto, pois nesse caso ele perde o significado por não ser possível algumas covariaveis serem iguais a zero, por exemplo **mwt**.
+
+Outros modelos não foram considerados devido a maior dificuldade de implementação computacional, em outros casos porque são modelos para dados com resposta discreta, a exemplo da Regressão Logística.
+
+O modelo foi adotado pensando na facilidade de interpretação em termos do problema e, consequentemente, na facilidade em se avaliar o bom ajuste do modelo. Essa avaliação será feita observando o valor do $R^2_{ajustado}$, definido no intervalo (0,1),significando que uma parte dos dados podem ser explicados pelas variáveis ajustadas no modelo e isso medido em porcentagem.
+
+O Nível de significância é de 5%.
+
+Então, o modelo proposto é o seguinte:
+
+$$Y=\beta X+\epsilon$$ 
+com $\epsilon \sim \mathit{N}(0,\sigma^2)$
+
+Significado das Variáveis:
+
+$Y$: Peso do Bebê
+
+$\beta$: Valor do Incremento quando se aumenta uma unidade da variável.
+
+$X$: Variáveis que serão testadas para verificação de sua relação com o Peso do Bebê
+
+$\epsilon$: Erro
+
+
+# Resultados
+
+
+## Modelo 1 
+
+Ajustará-se o primeiro modelo considerando todas as variáveis do banco de dados, depois se verificará quais são as significativas e por consequência, teremos uma análise breve do Ajuste.
+
+```{r modelo_1,echo=FALSE}
+fit_1 = lm(wt~.,data=dados)
+sumario = summary(fit_1)
+coef = round((sumario$coefficients),4)
+colnames(coef)=c("Estimado","Desvio Padrão","Valor T","Valor p")
+
+
+r_quadrado_ajust_fit_1 = sumario$adj.r.squared
+#xtable(coef, digits=4)
+
+lm(formula = wt ~ date + gestation + parity + race + mht + mwt +marital + smoke, data = dados)
+
+```
+
+Observando a tabela 1 na parte **A.3** do apêndice verificamos que as covariáveis significantes são: **gestation**,**parity**,**race**,**mwt** e **number**.
+
+Avaliando as estimativas das covariáveis citadas acima, temos:
+
+* Quando se aumenta uma unidade de **gestation**, temos um acrescimo em onças no peso do bebê de 0.3651
+
+* Quando se aumenta uma unidade de **parity**, temos um acrescimo em onças no peso do bebê de 0.8786 
+
+* Quando se aumenta uma unidade de **race**, temos um acrescimo em onças no peso do bebê de 0.8786 
+
+* Quando se aumenta uma unidade de **mwt**, temos um acrescimo em onças no peso do bebê de 0.0940 
+
+* Quando se aumenta uma unidade de **smoke**, temos um decrescimo em onças no peso do bebê de -2.0701  
+
+O  $R^2_{ajustado}=$ `r r_quadrado_ajust_fit_1`. Logo, cerca de 75% da variabilidade do modelo pode ser explicada eplas variáveis ajustadas
+
+## Modelo 2
+
+Excluindo as variáveis não significativas
+
+```{r,echo=FALSE}
+
+fit_2 = lm(wt~-1+gestation+parity+race+mwt+number,data=dados)
+mod.null <- lm(wt~1,data=dados)
+
+sumario_2 = summary(fit_2)
+
+coef_2 = round((sumario_2$coefficients),4)
+
+colnames(coef_2)=c("Estimado","Desvio Padrão","Valor T","Valor p")
+
+r_quadrado_ajust_fit_2 = round(abs((1-deviance(fit_2))/deviance(mod.null)),4)
+
+```
+
+Observando a tabela 2 na parte **A.3** do apêndice verificamos que as covariáveis significantes são: **gestation**,**parity**,**race**,**mwt** e **number**.
+
+Avaliando as estimativas das covariáveis citadas acima, temos:
+
+* Quando se aumenta uma unidade de **gestation**, temos um acrescimo em onças no peso do bebê de 0.3927 
+
+* Quando se aumenta uma unidade de **parity**, temos um acrescimo em onças no peso do bebê de 0.7771 
+
+* Quando se aumenta uma unidade de **race**, temos um decrescimo em onças no peso do bebê de -0.8596 
+
+* Quando se aumenta uma unidade de **mwt**, temos um acrescimo em onças no peso do bebê de 0.1074 
+
+* Quando se aumenta uma unidade de **smoke**, temos um decrescimo em onças no peso do bebê de -1.6555  
+
+O  $R^2_{ajustado}=$ `r r_quadrado_ajust_fit_2`. Logo, cerca de 76% da variabilidade do modelo pode ser explicada eplas variáveis ajustadas.
+
+# Conclusão
+
+Dado que o segundo modelo é escolhido como o principal,podemos observar que a análise feita concorda com o dito na introdução, a quantidade de cigarros fumados(**smoke**) influencia negativamente no peso do Bebê porém outras variáveis se mostraram importantes para se entender como a variável Peso do Bebê se comporta. Verifica-se também que o tempo de gestação, o número total de gestações anteriores e a Altura Da mãe contribuem posivitivamente no ganho de peso do Bebê. Já a variável raça da Mãe influência negativamente no referido Peso. 
+
+Podemos concluir concluir então que a quantidade de cigarro influência mais do que as outras variáveis no Peso do Bebê pois sua estimativa é maior que as outras porém ela não deve ser observada somente mas deve se também avaliar a influencia de fatores relacionados a mãe.
 
 ```{r,echo=FALSE}
 
 ```
 
-
-```{r,echo=FALSE}
-
-```
+\newpage
 
 # Apêndice
 
-### A.1 Variáveis presentes no Banco de dados
+### A.1-Variáveis presentes no Banco de dados
 
 1. id - número de identificação
 
@@ -243,7 +388,7 @@ g2mae = grid.arrange(g3, g4, ncol=1,nrow=2)
 
 3. outcome - 1 = nascimento vivo que sobreviveu pelo menos 28 dias
 
-4. data - data de nascimento em que 1096 = 1 de janeiro de 1961
+4. date - data de nascimento em que 1096 = 1 de janeiro de 1961
 
 5. gestation - duração da gestação em dias
 
@@ -268,7 +413,7 @@ g2mae = grid.arrange(g3, g4, ncol=1,nrow=2)
 
 12. mht - altura da mãe em polegadas para a última polegada concluída, 99 = desconhecido
 
-13. mwt - peso pré-gradidez da mãe em libras, 999 = desconhecido
+13. mwt - peso pré-gravidez da mãe em libras, 999 = desconhecido
  
  
 14. drace - raça do pai, determinado como o mesmo que a raça da mãe.
@@ -281,7 +426,7 @@ g2mae = grid.arrange(g3, g4, ncol=1,nrow=2)
 
 18. dwt - determinação do peso do pai igual ao peso da mãe
 
-19. marital - 1 = casados, 2 = separados legalmente, 3 = 
+19. marital - Status Matrimonial 1 = casados, 2 = separados legalmente, 3 = 
 divorciados, 4 = viúvo, 5 = nunca se casou
 
 20. inc - rendimento anual da família em rendimentos de $ 2500 
@@ -294,3 +439,209 @@ gravidez atual, 3 = uma vez, não agora, 9 = desconhecido
 22. time - Se a mãe parar, há quanto tempo? 0 = nunca fumado, 1= ainda fuma,2 = durante a corrente preg, 3 = dentro de 1 ano,4 = 1 a 2 anos atrás,5 = 2 a 3 anos atrás, 6 = 3 a 4 anos atrás, 7 = 5 a 9yrs atrás,8 = 10 + anos atrás, 9 = sair e não sabe, 98 = desconhecido, 99 = não solicitado
 
 23. number - número de cigarros fumados por dia para fumadores passados e actuais 0 = nunca, 1 = 1-4 2 = 5-9, 3 = 10-14, 4 = 15-19, 5 = 20-29, 6 = 30-39, 7 = 40-60, 8 = 60+, 9 = fuma mas não sabe quantos fuma, 98 = desconhecido, 99 = não solicitado
+
+
+\newpage
+
+
+### A.2-Gráficos
+
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por raça da mãe
+ggplot(data = dados, aes(x = factor(race),y=wt))+geom_point()+theme_classic()+xlab("Raça da Mãe")+ylab("Peso do Bebê")
+```
+
+\begin{center}
+{`r legenda_graf1`}
+\end{center}
+
+\vspace*{2cm}
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = factor(ed),y=wt))+geom_point()+theme_classic()+xlab("Educação da Mãe")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf2`}
+\end{center}
+
+\newpage
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por raça da mãe
+ggplot(data = dados, aes(x = factor(marital),y=wt))+geom_point()+theme_classic()+xlab("Status Matrimonial")+ylab("Peso do Bebê")
+```
+
+\begin{center}
+{`r legenda_graf3`}
+\end{center}
+
+
+\vspace*{2cm}
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+ggplot(data = dados, aes(x = factor(inc),y=wt))+geom_point()+theme_classic()+xlab("Rendimento Anual da Família")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf4`}
+\end{center}
+
+
+\newpage
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por raça da mãe
+ggplot(data = dados, aes(x = factor(smoke),y=wt))+geom_point()+theme_classic()+xlab("Vicio em Tabaco")+ylab("Peso do Bebê")
+
+
+```
+\begin{center}
+{`r legenda_graf5`}
+\end{center}
+
+\vspace*{2cm}
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = factor(time),y=wt))+geom_point()+theme_classic()+xlab("Tempo de Parada")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf6`}
+\end{center}
+
+\newpage
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por raça da mãe
+ggplot(data = dados, aes(x = factor(number),y=wt))+geom_point()+theme_classic()+xlab("Número de Cigarros Fumados por Dia")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf7`}
+\end{center}
+
+
+\vspace*{2cm}
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = factor(parity),y=wt))+geom_point()+theme_classic()+xlab("Número Total de Gestações Anteriores")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf8`}
+\end{center}
+
+\newpage
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = age,y=wt))+geom_point()+theme_classic()+xlab("Idade da mãe")+ylab("Peso do Bebê")
+```
+
+\begin{center}
+{`r legenda_graf9`}
+\end{center}
+
+
+\vspace*{2cm}
+
+```{r,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+
+ggplot(data = dados, aes(x = mht,y=wt))+geom_point()+theme_classic()+xlab("Altura da Mãe")+ylab("Peso do Bebê")
+```
+
+\begin{center}
+{`r legenda_graf10`}
+\end{center}
+
+
+\newpage
+
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = mwt,y=wt))+geom_point()+theme_classic()+xlab("Peso Pré-Gravidez da Mãe")+ylab("Peso do Bebê")
+```
+
+\begin{center}
+{`r legenda_graf11`}
+\end{center}
+
+
+\vspace*{2cm}
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = date,y=wt))+geom_point()+theme_classic()+xlab("data de nascimento")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf12`}
+\end{center}
+
+\newpage
+
+```{r ,echo=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+# boxplot do peso do bebe por nivel educacional da mãe
+ggplot(data = dados, aes(x = gestation,y=wt))+geom_point()+theme_classic()+xlab("Duração da Gestação em Dias")+ylab("Peso do Bebê")
+```
+\begin{center}
+{`r legenda_graf13`}
+\end{center}
+
+```{r ,include=FALSEecho=FALSE,fig.height=3,fig.width=4.5,fig.align=2}
+#Gráficos de Interação
+toothInt <- ddply(dados,.(parity,race),summarise, val = mean(wt))
+
+ggplot(dados, aes(x = factor(parity), y = wt, colour = race)) + 
+  geom_boxplot() + 
+  geom_point(data = toothInt, aes(y = val)) +
+  geom_line(data = toothInt, aes(y = val, group = race)) + 
+  theme_bw()
+```
+
+
+\newpage
+
+### A.3-Tabelas
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimado & Desvio Padrão & Valor T & Valor p \\ 
+  \hline
+date & 0.0020 & 0.0042 & 0.4802 & 0.6312 \\ 
+  gestation & 0.3651 & 0.0282 & 12.9332 & < 0.0001 \\ 
+  parity & 0.8786 & 0.3309 & 2.6556 & 0.0080 \\ 
+  race & -0.8511 & 0.1604 & -5.3059 & < 0.0001 \\ 
+  age & -0.0802 & 0.1095 & -0.7321 & 0.4643 \\ 
+  ed & -0.0368 & 0.3683 & -0.0999 & 0.9204 \\ 
+  mht & 0.1661 & 0.1510 & 1.0998 & 0.2717 \\ 
+  mwt & 0.0940 & 0.0269 & 3.4982 & 0.0005 \\ 
+  marital & -2.4395 & 1.6575 & -1.4718 & 0.1414 \\ 
+  inc & -0.1001 & 0.2351 & -0.4257 & 0.6704 \\ 
+  smoke & 1.6542 & 1.3465 & 1.2285 & 0.2195 \\ 
+  time & 0.0746 & 0.7677 & 0.0972 & 0.9226 \\ 
+  number & -2.0701 & 0.2777 & -7.4551 & < 0.0001 \\    \hline
+\end{tabular}
+\end{table}
+
+`r legenda_table1`
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimado & Desvio Padrão & Valor T & Valor p \\ 
+  \hline
+gestation & 0.3927 & 0.0108 & 36.4884 & < 0.0001\\ 
+  parity & 0.7771 & 0.2687 & 2.8919 & 0.0039 \\ 
+  race & -0.8596 & 0.1571 & -5.4701 & < 0.0001 \\ 
+  mwt & 0.1074 & 0.0234 & 4.5895 & < 0.0001 \\ 
+  number & -1.6555 & 0.2273 & -7.2825 & < 0.0001 \\ 
+   \hline
+\end{tabular}
+\end{table}
+`r legenda_table2`
